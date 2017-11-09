@@ -1,0 +1,93 @@
+---
+swagger: "2.0"
+info:
+  description: "Move your app forward with the Uber API"
+  version: "1.0.0"
+  title: "Uber API"
+host: "localhost:3300"
+basePath: "/v1"
+schemes:
+- "http"
+produces:
+- "application/json"
+paths:
+  /search:
+    get:
+      tags:
+      - "Search"
+      summary: "Search for content"
+      description: "The Search endpoint returns information based on search criteria\n"
+      operationId: "searchGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "externalId"
+        in: "query"
+        description: "External Resource ID"
+        required: false
+        type: "number"
+      - name: "originalTitle"
+        in: "query"
+        description: "original content title"
+        required: false
+        type: "string"
+      - name: "productionYear"
+        in: "query"
+        description: "content's production year"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "An array of search results"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/inline_response_200"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/inline_response_default"
+      x-swagger-router-controller: "Search"
+definitions:
+  Search:
+    type: "object"
+    properties:
+      total_results:
+        type: "number"
+        description: "Total number of search results"
+      total_pages:
+        type: "number"
+        description: "Total number of pages"
+      results:
+        type: "string"
+        description: "TBD => to gre v array"
+  Error:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"
+      fields:
+        type: "string"
+  inline_response_200:
+    properties:
+      total_results:
+        type: "number"
+        description: "Total number of search results"
+      total_pages:
+        type: "number"
+        description: "Total number of pages"
+      results:
+        type: "string"
+        description: "TBD => to gre v array"
+  inline_response_default:
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"
+      fields:
+        type: "string"
