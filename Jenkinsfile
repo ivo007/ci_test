@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        fileExists 'index.js'
+        sh 'npm install'
       }
     }
   }
