@@ -8,7 +8,14 @@ pipeline {
     }
     stage('Run') {
       steps {
-        sh 'node index.js'
+        sh '''npm start &
+sleep 1
+echo $! > .pidfile'''
+      }
+    }
+    stage('End') {
+      steps {
+        sh 'kill $(cat .pidfile)'
       }
     }
   }
