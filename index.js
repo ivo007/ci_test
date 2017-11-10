@@ -1,3 +1,6 @@
+/*
+Testing Jenkins configuration on AWS EC2
+*/
 'use strict';
 
 var app = require('connect')();
